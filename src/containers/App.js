@@ -1,44 +1,13 @@
 import React from 'react';
 import {connect} from 'react-redux';
 
-import CardList from '../components/CardList';
-import SearchBox from '../components/SearchBox';
-import Scroll from '../components/Scroll';
-import ErrorBoundary from '../components/ErrorBoundary';
-import Header from '../components/Header';
+import MainPage from '../components/MainPage';
 
 import {setSearchField, requestRobots} from '../actions/actions';
 
-import './App.css';
-
 class App extends React.Component{
-
-	componentDidMount(){
-		this.props.onRequestRobots();
-	}
-
 	render(){
-		const {searchText, onSearchChange, robots, isPending} = this.props;
-		
-		if(isPending === 0){
-			return <h1>Loading...</h1>;
-		}else{
-			const filterRobots = robots.filter(robot => {
-				return robot.name.toLowerCase().includes(searchText.toLowerCase());
-			});
-
-			return (
-				<div className='tc'>
-					<Header />
-					<SearchBox searchChange={onSearchChange} />
-					<Scroll>
-						<ErrorBoundary>
-							<CardList robots={filterRobots}/>
-						</ErrorBoundary>
-					</Scroll>
-				</div>
-			);
-		}
+		return <MainPage {...this.props} />
 	}
 };
 
