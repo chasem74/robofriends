@@ -15,10 +15,7 @@ class App extends React.Component{
 
 	componentDidMount(){
 		this.props.onRequestRobots();
-/*		fetch('https://jsonplaceholder.typicode.com/users')
-		.then(response => response.json())
-		.then(users => this.setState({robots: users}));
-*/	}
+	}
 
 	render(){
 		const {searchText, onSearchChange, robots, isPending} = this.props;
