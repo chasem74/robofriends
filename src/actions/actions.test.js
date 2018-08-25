@@ -3,8 +3,13 @@ import Constants from '../constants';
 
 import configureMockStore from 'redux-mock-store';
 import thunkMiddleware from 'redux-thunk';
+import fetchMock from 'fetch-mock';
 
 const mockStore = configureMockStore([thunkMiddleware]);
+let store;
+
+const DUMMY_ERROR = 'ERRROR';
+const JSON_PLACEHOLDER_URL = 'https://jsonplaceholder.typicode.com';
 
 describe('redux actions', () => {
 	describe('setSearchField', () => {
@@ -20,8 +25,15 @@ describe('redux actions', () => {
 	});
 
 	describe('requestRobots', () => {
-		it('handles requesting robots API', () => {
-			const store = mockStore();
+		beforeEach(() => {
+			store = mockStore({});
+		});
+		afterEach(() => {
+			fetchMock.reset();
+			fetchMock.restore();
+		});
+
+		it('handles requesting robots API (eg put into REQUEST_ROBOTS_STATE_PENDING state)', () => {
 			store.dispatch(actions.requestRobots());
 			const action = store.getActions();
 			const expectedAction = {
@@ -29,6 +41,22 @@ describe('redux actions', () => {
 			};
 
 			expect(action[0]).toEqual(expectedAction);
+		});
+
+		it('responds with the error as the payload on a fetch error', () => {
+
+			fetchMock.getOnce(JSON_PLACEHOLDER_URL + '/users', new Promise((resolve, reject) => {
+				reject(DUMMY_ERROR)
+			}));
+			
+			const expectedActions = [
+				{type: Constants.REQUEST_ROBOTS_STATE_PENDING},
+				{type: Constants.REQUEST_ROBOTS_STATE_FAILED, payload: DUMMY_ERROR}
+			];
+
+			return store.dispatch(actions.requestRobots()).then(() => {
+				expect(store.getActions()).toEqual(expectedActions);
+			});
 		});
 	});
 });

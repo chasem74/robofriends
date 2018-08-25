@@ -11,7 +11,7 @@ const JSON_PLACEHOLDER_URL = 'https://jsonplaceholder.typicode.com/users';
 export const requestRobots = () => (dispatch) => {
 	dispatch({type: Constants.REQUEST_ROBOTS_STATE_PENDING});
 
-	apiCall(JSON_PLACEHOLDER_URL)
+	return apiCall(JSON_PLACEHOLDER_URL)
 	.then(data => dispatch({type: Constants.REQUEST_ROBOTS_STATE_SUCCESS, payload: data}))
 	.catch(error => dispatch({type: Constants.REQUEST_ROBOTS_STATE_FAILED, payload: error}));
 };
