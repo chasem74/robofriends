@@ -6,7 +6,8 @@
   "devDependencies": {
     "enzyme": "^3.4.4",
     "enzyme-adapter-react-16": "^1.2.0",
-    "gh-pages": "^1.2.0"
+    "gh-pages": "^1.2.0",
+    "git-scripts": "^0.2.1"
   },
   "dependencies": {
     "react": "^16.4.2",
@@ -25,5 +26,10 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
+  },
+  "git": {
+    "scripts": {
+      "post-push": "npm run deploy"
+    }
   }
 }
