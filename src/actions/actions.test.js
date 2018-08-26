@@ -46,12 +46,33 @@ describe('redux actions', () => {
 		it('responds with the error as the payload on a fetch error', () => {
 
 			fetchMock.getOnce(JSON_PLACEHOLDER_URL + '/users', new Promise((resolve, reject) => {
-				reject(DUMMY_ERROR)
+				reject(DUMMY_ERROR);
 			}));
 			
 			const expectedActions = [
 				{type: Constants.REQUEST_ROBOTS_STATE_PENDING},
 				{type: Constants.REQUEST_ROBOTS_STATE_FAILED, payload: DUMMY_ERROR}
+			];
+
+			return store.dispatch(actions.requestRobots()).then(() => {
+				expect(store.getActions()).toEqual(expectedActions);
+			});
+		});
+
+		it('responds with the data as the payload on a fetch success', () => {
+			const payload = [{
+					id: 3,
+					name: 'Chase',
+					email: 'chase@gmail.com'
+			}];
+
+			fetchMock.getOnce(JSON_PLACEHOLDER_URL + '/users', new Promise((resolve, reject) => {
+				resolve(payload);
+			}));
+
+			const expectedActions = [
+				{type: Constants.REQUEST_ROBOTS_STATE_PENDING},
+				{type: Constants.REQUEST_ROBOTS_STATE_SUCCESS, payload: payload}
 			];
 
 			return store.dispatch(actions.requestRobots()).then(() => {
