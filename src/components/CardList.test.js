@@ -5,6 +5,8 @@ import CardList from './CardList';
 
 describe('<CardList />', () => {
 	it('expect to render CardList component', () => {
+		expect.assertions(1);
+
 		const mockRobots = [
 			{
 				id: 1,

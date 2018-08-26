@@ -14,6 +14,8 @@ const JSON_PLACEHOLDER_URL = 'https://jsonplaceholder.typicode.com';
 describe('redux actions', () => {
 	describe('setSearchField', () => {
 		it('should create an action to search robots', () => {
+			expect.assertions(1);
+
 			const text = 'woo';
 			const expectedAction = {
 				type: Constants.CHANGE_SEARCH_FIELD_ACTION,
@@ -28,12 +30,15 @@ describe('redux actions', () => {
 		beforeEach(() => {
 			store = mockStore({});
 		});
+
 		afterEach(() => {
 			fetchMock.reset();
 			fetchMock.restore();
 		});
 
 		it('handles requesting robots API (eg put into REQUEST_ROBOTS_STATE_PENDING state)', () => {
+			expect.assertions(1);
+
 			store.dispatch(actions.requestRobots());
 			const action = store.getActions();
 			const expectedAction = {
@@ -44,6 +49,7 @@ describe('redux actions', () => {
 		});
 
 		it('responds with the error as the payload on a fetch error', () => {
+			expect.assertions(1);
 
 			fetchMock.getOnce(JSON_PLACEHOLDER_URL + '/users', new Promise((resolve, reject) => {
 				reject(DUMMY_ERROR);
@@ -60,6 +66,8 @@ describe('redux actions', () => {
 		});
 
 		it('responds with the data as the payload on a fetch success', () => {
+			expect.assertions(1);
+
 			const payload = [{
 					id: 3,
 					name: 'Chase',

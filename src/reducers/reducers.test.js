@@ -9,11 +9,13 @@ describe('redux reducers', () => {
 		};
 
 		it('should return the initial state', () => {
+			expect.assertions(2);
 			expect(reducers.searchRobots(undefined, {})).toEqual(initialSearchState);
 			expect(reducers.searchRobots()).toEqual(initialSearchState);
 		});
 
 		it('it should handle CHANGE_SEARCH_FIELD_ACTION', () => {
+			expect.assertions(1);
 			expect(reducers.searchRobots(initialSearchState, {
 				type: Constants.CHANGE_SEARCH_FIELD_ACTION,
 				payload: 'abc'
@@ -31,11 +33,13 @@ describe('redux reducers', () => {
 		};
 
 		it('should return the initial state', () => {
+			expect.assertions(2);
 			expect(reducers.robots()).toEqual(initialRobotState);
 			expect(reducers.robots(undefined, {})).toEqual(initialRobotState);
 		});
 
 		it('should handle REQUEST_ROBOTS_STATE_PENDING action', () => {
+			expect.assertions(1);
 			expect(reducers.robots(initialRobotState, {
 				type: Constants.REQUEST_ROBOTS_STATE_PENDING,
 			})).toEqual({
@@ -46,6 +50,8 @@ describe('redux reducers', () => {
 		});
 
 		it('should handle REQUEST_ROBOTS_STATE_SUCCESS action', () => {
+			expect.assertions(1);
+
 			const mockPayload = [{
 				id: 1,
 				name: 'Chase',
@@ -63,6 +69,8 @@ describe('redux reducers', () => {
 		});
 
 		it('should handle REQUEST_ROBOTS_STATE_FAILED action', () => {
+			expect.assertions(1);
+
 			const mockPayload = 'There was an error loading robots';
 
 			expect(reducers.robots(initialRobotState, {

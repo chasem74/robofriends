@@ -18,10 +18,13 @@ beforeEach(() => {
 
 describe('<MainPage />', () => {
 	it('renders MainPage without crashing', () => {
+		expect.assertions(1);
 		expect(wrapper).toMatchSnapshot();
 	});
 
 	it('filters robots correctly', () => {
+		expect.assertions(1);
+
 		const mockProps2 = {
 			onRequestRobots: jest.fn(),
 			robots: [{
@@ -38,6 +41,8 @@ describe('<MainPage />', () => {
 	});
 
 	it('renders loading message correctly when isPending is true', () => {
+		expect.assertions(1);
+
 		const mockProps3 = {
 			onRequestRobots: jest.fn(),
 			robots: [],
